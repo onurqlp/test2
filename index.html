@@ -3,548 +3,635 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AYDA A1 Test</title>
+  <title>AYDA A1 Öğrenci Paneli</title>
 
   <style>
     :root {
-      --ayda-main: #0f6b8f;
-      --ayda-dark: #08384d;
-      --ayda-soft: #eaf7fb;
-      --ayda-border: #cde7ef;
-      --ayda-success: #198754;
-      --ayda-danger: #dc3545;
-      --ayda-warning: #f59e0b;
+      --ayda: #234078;
+      --ayda-dark: #172b52;
+      --ayda-soft: #eef3fb;
       --text: #1f2937;
       --muted: #6b7280;
-      --white: #ffffff;
+      --card: #ffffff;
+      --border: #dce3f0;
+      --danger: #dc2626;
+      --radius: 22px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #eef9fc, #ffffff);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(35,64,120,0.13), transparent 34%),
+        linear-gradient(180deg, #f8fbff 0%, #eef3fb 100%);
       color: var(--text);
+      min-height: 100vh;
+    }
+
+    #loginScreen {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: 0 20px 50px rgba(35,64,120,0.18);
+    }
+
+    .login-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: var(--ayda);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .login-card h1 {
+      margin: 0 0 8px;
+      color: var(--ayda-dark);
+      font-size: 25px;
+      letter-spacing: -0.03em;
+    }
+
+    .login-card p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .password-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="password"], input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 15px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--ayda);
+      box-shadow: 0 0 0 4px rgba(35,64,120,0.10);
+    }
+
+    .login-btn {
+      border: 0;
+      background: var(--ayda);
+      color: white;
+      border-radius: 16px;
+      padding: 0 18px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .error {
+      display: none;
+      margin-top: 12px;
+      color: var(--danger);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    #app {
+      display: none;
     }
 
     .page {
-      min-height: 100vh;
-      padding: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .container {
-      width: 100%;
       max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 14px 38px;
     }
 
-    .header {
-      background: var(--white);
-      border: 1px solid var(--ayda-border);
-      border-radius: 22px;
-      padding: 24px;
-      margin-bottom: 18px;
-      box-shadow: 0 10px 30px rgba(15, 107, 143, 0.08);
+    .hero {
+      background: linear-gradient(135deg, var(--ayda), var(--ayda-dark));
+      color: white;
+      border-radius: 28px;
+      padding: 26px 20px;
+      box-shadow: 0 18px 40px rgba(35,64,120,0.26);
+      position: relative;
+      overflow: hidden;
     }
 
-    .brand {
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -60px;
+      top: -50px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .level-mark {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 16px;
+      padding: 4px 12px;
+      margin-right: 8px;
+      font-size: 1.05em;
+      letter-spacing: -0.02em;
+    }
+
+    .badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: var(--ayda-soft);
-      color: var(--ayda-dark);
-      padding: 8px 13px;
+      gap: 8px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 8px 12px;
       border-radius: 999px;
+      font-size: 13px;
       font-weight: 700;
       margin-bottom: 14px;
     }
 
     h1 {
       margin: 0;
-      font-size: 32px;
-      color: var(--ayda-dark);
+      font-size: clamp(26px, 6vw, 42px);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
     }
 
-    .subtitle {
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    .card {
-      background: var(--white);
-      border: 1px solid var(--ayda-border);
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(15, 107, 143, 0.08);
-      margin-bottom: 18px;
-    }
-
-    #aydaLoginBox {
-      max-width: 520px;
-      margin: 40px auto;
-    }
-
-    .login-title {
-      margin: 0 0 10px;
-      color: var(--ayda-dark);
-      font-size: 24px;
-    }
-
-    .login-text {
-      margin: 0 0 18px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .login-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    input[type="password"],
-    input[type="text"] {
-      width: 100%;
-      padding: 14px 15px;
-      border: 1px solid var(--ayda-border);
-      border-radius: 14px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    input[type="password"]:focus,
-    input[type="text"]:focus {
-      border-color: var(--ayda-main);
-      box-shadow: 0 0 0 3px rgba(15, 107, 143, 0.12);
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
-      border-radius: 14px;
-      font-weight: 700;
-      transition: 0.2s;
-    }
-
-    .login-btn {
-      min-width: 130px;
-      padding: 14px 18px;
-      background: var(--ayda-main);
-      color: white;
+    .hero p {
+      margin: 12px 0 0;
+      max-width: 700px;
+      color: rgba(255,255,255,0.86);
       font-size: 15px;
+      line-height: 1.6;
     }
 
-    .login-btn:hover {
-      background: var(--ayda-dark);
-    }
-
-    #aydaLoginMessage {
-      margin-top: 12px;
-      color: var(--ayda-danger);
-      font-weight: 700;
-      min-height: 22px;
-    }
-
-    #aydaProtectedContent {
-      display: none;
-    }
-
-    .info-grid {
+    .quick-box {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       margin-top: 18px;
     }
 
-    .info-box {
-      background: var(--ayda-soft);
-      border: 1px solid var(--ayda-border);
-      border-radius: 16px;
+    .quick {
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.22);
       padding: 14px;
+      border-radius: 18px;
     }
 
-    .info-box strong {
+    .quick strong {
       display: block;
-      color: var(--ayda-dark);
-      margin-bottom: 5px;
-    }
-
-    .info-box span {
-      color: var(--muted);
       font-size: 14px;
+      margin-bottom: 4px;
     }
 
-    .question {
-      border: 1px solid var(--ayda-border);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 14px;
-      background: #ffffff;
+    .quick span {
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
     }
 
-    .question h3 {
-      margin: 0 0 12px;
-      color: var(--ayda-dark);
-      font-size: 18px;
-    }
-
-    .options {
+    .main-actions {
       display: grid;
-      gap: 9px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0 8px;
     }
 
-    .option {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 10px 12px;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      cursor: pointer;
-      background: #fafafa;
-    }
-
-    .option:hover {
-      background: var(--ayda-soft);
-      border-color: var(--ayda-border);
-    }
-
-    .option input {
-      transform: scale(1.1);
-    }
-
-    .submit-btn {
-      background: var(--ayda-success);
+    .main-actions a,
+    .link-btn {
+      text-decoration: none;
       color: white;
-      padding: 15px 22px;
-      font-size: 16px;
-      width: 100%;
-      margin-top: 8px;
-    }
-
-    .submit-btn:hover {
-      filter: brightness(0.94);
-    }
-
-    .reset-btn {
-      background: #f3f4f6;
-      color: var(--text);
-      padding: 13px 18px;
-      font-size: 15px;
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    .result {
-      display: none;
-      margin-top: 18px;
+      background: var(--ayda);
       border-radius: 18px;
-      padding: 18px;
-      border: 1px solid var(--ayda-border);
-      background: var(--ayda-soft);
+      padding: 16px;
+      font-weight: 800;
+      text-align: center;
+      box-shadow: 0 10px 24px rgba(35,64,120,0.18);
+      transition: 0.18s ease;
+      display: block;
     }
 
-    .result h2 {
-      margin: 0 0 8px;
-      color: var(--ayda-dark);
+    .main-actions a:hover,
+    .link-btn:hover {
+      transform: translateY(-2px);
+      background: var(--ayda-dark);
     }
 
-    .result p {
-      margin: 8px 0;
+    .note {
+      margin: 18px 0;
+      background: #fff8e6;
+      border: 1px solid #fde7a7;
+      color: #76520d;
+      border-radius: 18px;
+      padding: 14px 16px;
+      font-size: 14px;
       line-height: 1.5;
     }
 
-    .logout {
-      text-align: right;
+    .section-title {
+      margin: 26px 2px 12px;
+      font-size: 18px;
+      color: var(--ayda-dark);
+      letter-spacing: -0.02em;
+    }
+
+    details {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       margin-bottom: 12px;
+      box-shadow: 0 10px 26px rgba(31,41,55,0.06);
+      overflow: hidden;
     }
 
-    .logout button {
-      background: #fee2e2;
-      color: #991b1b;
-      padding: 10px 14px;
+    summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 18px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-weight: 900;
+      color: var(--ayda-dark);
     }
 
-    @media (max-width: 720px) {
-      .page {
-        padding: 14px;
+    summary::-webkit-details-marker { display: none; }
+
+    summary .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--ayda-soft);
+      color: var(--ayda);
+      flex-shrink: 0;
+      font-size: 19px;
+    }
+
+    .arrow {
+      transition: 0.2s ease;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    details[open] .arrow { transform: rotate(180deg); }
+
+    .content {
+      padding: 0 18px 18px;
+      border-top: 1px solid #eef2f7;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 14px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .grid a {
+      text-decoration: none;
+      color: var(--ayda-dark);
+      background: #f8fbff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.35;
+      transition: 0.18s ease;
+    }
+
+    .grid a:hover {
+      border-color: var(--ayda);
+      transform: translateY(-1px);
+      background: #ffffff;
+    }
+
+    .small-info {
+      margin-top: 12px;
+      background: #f8fbff;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 13px 17px;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 14px 34px rgba(37,211,102,0.36);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .whatsapp-float span {
+      font-size: 18px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 26px;
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: var(--ayda);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media (max-width: 680px) {
+      .quick-box,
+      .main-actions,
+      .grid {
+        grid-template-columns: 1fr;
       }
 
-      h1 {
-        font-size: 25px;
+      .hero {
+        padding: 24px 18px;
       }
 
-      .login-row {
+      .password-row {
         flex-direction: column;
       }
 
       .login-btn {
-        width: 100%;
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card,
-      .header {
-        padding: 18px;
-        border-radius: 18px;
+        padding: 14px 18px;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="page">
-    <div class="container">
 
-      <div id="aydaLoginBox" class="card">
-        <div class="brand">AYDA Dil Akademisi</div>
-        <h2 class="login-title">A1 Test Girişi</h2>
-        <p class="login-text">
-          Bu sayfaya erişmek için size verilen şifreyi giriniz.
+  <section id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">AY</div>
+      <h1>AYDA Öğrenci Paneli</h1>
+      <p>Devam etmek için size verilen sınıf kodunu veya giriş parolasını yazınız.</p>
+
+      <div class="password-row">
+        <input id="passwordInput" type="password" placeholder="Giriş parolası" autocomplete="off" />
+        <button class="login-btn" onclick="checkPassword()">Giriş</button>
+      </div>
+
+      <div id="errorMsg" class="error">Parola hatalı. Lütfen tekrar deneyiniz.</div>
+    </div>
+  </section>
+
+  <main id="app">
+    <div class="page">
+      <section class="hero">
+        <div class="badge">AYDA · A1 Öğrenci Giriş Paneli</div>
+        <h1><span class="level-mark">A1</span> Ders, Video ve Materyal Merkezi</h1>
+        <p>
+          Ders tekrar videoları, online kütüphane, materyaller, kısa konu anlatımları ve ek çalışma kaynaklarına
+          tek ekrandan ulaşabilirsiniz. Kalabalık olmaması için içerikler başlıkların altında açılır şekilde düzenlenmiştir.
         </p>
 
-        <div class="login-row">
-          <input
-            type="password"
-            id="aydaPasswordInput"
-            placeholder="Şifrenizi giriniz"
-            autocomplete="off"
-          />
-          <button type="button" class="login-btn" onclick="aydaCheckPassword()">
-            Giriş Yap
-          </button>
+        <div class="quick-box">
+          <div class="quick">
+            <strong>Online Kütüphane Şifresi</strong>
+            <span>A1</span>
+          </div>
+          <div class="quick">
+            <strong>Öneri</strong>
+            <span>Derse girmeden önce Zoom uygulamasını indiriniz.</span>
+          </div>
         </div>
+      </section>
 
-        <div id="aydaLoginMessage"></div>
+      <div class="main-actions">
+        <a href="https://www.aydadil.com/dersler/" target="_blank">Ders Tekrar Videoları</a>
+        <a href="https://www.aydadil.com/bibliothek/" target="_blank">Online Kütüphane</a>
+        <a href="https://www.aydadil.com/sinavhazirlik/" target="_blank">Sınav Hazırlık Platformu</a>
       </div>
 
-      <div id="aydaProtectedContent">
-        <div class="logout">
-          <button type="button" onclick="aydaLogout()">Çıkış Yap</button>
-        </div>
-
-        <div class="header">
-          <div class="brand">AYDA A1 Almanca Test</div>
-          <h1>A1 Seviye Mini Deneme Testi</h1>
-          <p class="subtitle">
-            Bu test A1 seviyesinde temel kelime, günlük ifade ve basit dil bilgisi kontrolü için hazırlanmıştır.
-            Sonucu test sonunda görebilirsiniz.
-          </p>
-
-          <div class="info-grid">
-            <div class="info-box">
-              <strong>Seviye</strong>
-              <span>A1 Başlangıç</span>
-            </div>
-            <div class="info-box">
-              <strong>Soru Sayısı</strong>
-              <span>10 soru</span>
-            </div>
-            <div class="info-box">
-              <strong>Sonuç</strong>
-              <span>Anında puanlama</span>
-            </div>
-          </div>
-        </div>
-
-        <form id="a1TestForm" class="card">
-          <div class="question">
-            <h3>1. “Guten Morgen” ne demektir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q1" value="a"> İyi akşamlar</label>
-              <label class="option"><input type="radio" name="q1" value="b"> Günaydın</label>
-              <label class="option"><input type="radio" name="q1" value="c"> Hoşça kal</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>2. “Ich heiße Ali.” cümlesinin anlamı nedir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q2" value="a"> Ben Ali’yim / Benim adım Ali</label>
-              <label class="option"><input type="radio" name="q2" value="b"> Ali burada değil</label>
-              <label class="option"><input type="radio" name="q2" value="c"> Ali Almanya’da yaşıyor</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>3. “Wie geht es Ihnen?” sorusuna uygun cevap hangisidir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q3" value="a"> Danke, gut.</label>
-              <label class="option"><input type="radio" name="q3" value="b"> Ich komme aus Ankara.</label>
-              <label class="option"><input type="radio" name="q3" value="c"> Ich bin 25 Jahre alt.</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>4. “Ben Türkiye’den geliyorum.” Almanca nasıl söylenir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q4" value="a"> Ich wohne in Türkiye.</label>
-              <label class="option"><input type="radio" name="q4" value="b"> Ich komme aus der Türkei.</label>
-              <label class="option"><input type="radio" name="q4" value="c"> Ich spreche Türkisch.</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>5. “der Tisch” kelimesinin Türkçesi nedir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q5" value="a"> Masa</label>
-              <label class="option"><input type="radio" name="q5" value="b"> Sandalye</label>
-              <label class="option"><input type="radio" name="q5" value="c"> Kapı</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>6. Doğru cümleyi seçiniz.</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q6" value="a"> Ich bin Lehrer.</label>
-              <label class="option"><input type="radio" name="q6" value="b"> Ich bist Lehrer.</label>
-              <label class="option"><input type="radio" name="q6" value="c"> Ich ist Lehrer.</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>7. “Haben Sie Kinder?” sorusunun anlamı nedir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q7" value="a"> Çocuğunuz var mı?</label>
-              <label class="option"><input type="radio" name="q7" value="b"> Nerede yaşıyorsunuz?</label>
-              <label class="option"><input type="radio" name="q7" value="c"> Kaç yaşındasınız?</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>8. “Heute” kelimesinin anlamı nedir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q8" value="a"> Yarın</label>
-              <label class="option"><input type="radio" name="q8" value="b"> Bugün</label>
-              <label class="option"><input type="radio" name="q8" value="c"> Dün</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>9. “Ich trinke Wasser.” cümlesinin anlamı nedir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q9" value="a"> Su içiyorum.</label>
-              <label class="option"><input type="radio" name="q9" value="b"> Su satın alıyorum.</label>
-              <label class="option"><input type="radio" name="q9" value="c"> Su istemiyorum.</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>10. “Auf Wiedersehen” ne demektir?</h3>
-            <div class="options">
-              <label class="option"><input type="radio" name="q10" value="a"> Görüşmek üzere</label>
-              <label class="option"><input type="radio" name="q10" value="b"> Teşekkür ederim</label>
-              <label class="option"><input type="radio" name="q10" value="c"> Rica ederim</label>
-            </div>
-          </div>
-
-          <button type="button" class="submit-btn" onclick="calculateResult()">
-            Testi Bitir ve Sonucu Göster
-          </button>
-
-          <button type="button" class="reset-btn" onclick="resetTest()">
-            Testi Sıfırla
-          </button>
-
-          <div id="testResult" class="result"></div>
-        </form>
+      <div class="note">
+        <strong>Not:</strong> Online kütüphane için şifre <strong>A1</strong>. Ders kayıtları ve materyallerle ilgili yardım videoları aşağıdaki başlıklarda yer almaktadır.
       </div>
+
+      <h2 class="section-title">Kaynaklar</h2>
+
+      <details open>
+        <summary>
+          <span class="left"><span class="icon">📁</span> Ders Materyalleri</span>
+          <span class="arrow">⌄</span>
+        </summary>
+        <div class="content">
+          <p class="desc">Ders PDF'leri, A1 ek materyaller ve sınıfta kullanılan temel kaynaklara buradan ulaşabilirsiniz.</p>
+          <div class="grid">
+            <a href="https://drive.google.com/drive/folders/1EhcIIju4RZyB5HfcccAF6q8nHIou2uwT?usp=sharing" target="_blank">Ders Materyalleri</a>
+            <a href="https://drive.google.com/drive/folders/1vxr47d-wdfN6bBQfUJwKXvmv4luPiasq?usp=drive_link" target="_blank">A1 Ek Materyal</a>
+            <a href="https://drive.google.com/drive/folders/1VAz1AtWp4RDmmRddSZwqQr5XtfszjkOS?usp=sharing" target="_blank">A1 Cümle Kalıpları</a>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="left"><span class="icon">🎥</span> Ders Videoları ve Yardım Videoları</span>
+          <span class="arrow">⌄</span>
+        </summary>
+        <div class="content">
+          <p class="desc">Ders tekrarlarını izleme, materyal indirme ve Arbeitsbuch dinlemelerini bulma konusunda yardımcı videolar.</p>
+          <div class="grid">
+            <a href="https://www.aydadil.com/dersler/" target="_blank">Ders Tekrar Videoları</a>
+            <a href="https://drive.google.com/drive/folders/1mv_Crm7n8s1javra-rW4a7fGz6PkFjQZ?usp=drive_link" target="_blank">A1 Menschen Ders Videoları</a>
+            <a href="https://youtu.be/cw9jcwIXv6g" target="_blank">Ders Kayıtları ve Materyaller Nasıl Kullanılır?</a>
+            <a href="https://youtu.be/SgLBimupSIU" target="_blank">Arbeitsbuch Dinlemeleri Nasıl İndirilir?</a>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="left"><span class="icon">📚</span> Kısa Konu Anlatımları A1</span>
+          <span class="arrow">⌄</span>
+        </summary>
+        <div class="content">
+          <p class="desc">Ünitelere göre kısa konu anlatımı videoları. Tekrar yapmak için kullanabilirsiniz.</p>
+          <div class="grid">
+            <a href="https://youtube.com/playlist?list=PLlPnminIi7ZFg8jGfuZqcMvQEPS6Dubaj" target="_blank">Ünite 1-3</a>
+            <a href="https://youtube.com/playlist?list=PLlPnminIi7ZFaNGGwJVk4Y2F4moEsCY76" target="_blank">Ünite 3-9</a>
+            <a href="https://youtube.com/playlist?list=PLlPnminIi7ZHrt1mHEz_heegM9KlCfeVw" target="_blank">Ünite 10-12</a>
+            <a href="https://youtube.com/playlist?list=PLlPnminIi7ZGZv5oqWOqn-MUNvMa6d_JQ" target="_blank">Ünite 13-18</a>
+            <a href="https://youtube.com/playlist?list=PLlPnminIi7ZHcKC5tsXwGulBB3SDj6bcp" target="_blank">Ünite 18-24</a>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="left"><span class="icon">🧠</span> Ek Çalışma ve Kelime Alıştırmaları</span>
+          <span class="arrow">⌄</span>
+        </summary>
+        <div class="content">
+          <p class="desc">Kelime tekrarı, dinleme alışkanlığı ve ek pratik için kullanabileceğiniz destek kaynakları.</p>
+          <div class="grid">
+            <a href="https://quizlet.com/onurqlp/folders/menschen-a1?x=1xqt&i=3m8fpg" target="_blank">Quizlet A1 Menschen Kelime Alıştırması</a>
+            <a href="https://youtube.com/playlist?list=PLlPnminIi7ZGaC8tkVghThkGQ_L-QkYY0" target="_blank">Youtube Almanca Müzikler</a>
+            <a href="https://learngerman.dw.com/tr/nicos-weg/c-54846011" target="_blank">Nicos Weg A1</a>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="left"><span class="icon">💻</span> Zoom Uygulamasını İndir</span>
+          <span class="arrow">⌄</span>
+        </summary>
+        <div class="content">
+          <p class="desc">Derse katılmadan önce cihazınıza uygun Zoom uygulamasını indirmenizi öneririz.</p>
+          <div class="grid">
+            <a href="https://play.google.com/store/apps/details?id=us.zoom.videomeetings" target="_blank">Android için Zoom</a>
+            <a href="https://itunes.apple.com/us/app/id546505307" target="_blank">iOS için Zoom</a>
+            <a href="https://zoom.us/download?os=mac" target="_blank">Mac için Zoom</a>
+            <a href="https://zoom.us/download" target="_blank">Bilgisayar için Zoom</a>
+          </div>
+        </div>
+      </details>
+
+      <footer>
+        AYDA Dil Akademisi<br>
+        Sorularınız için WhatsApp: <a href="https://wa.me/905409122503" target="_blank">0540 912 25 03</a><br>
+        <a href="https://www.aydadil.com" target="_blank">www.aydadil.com</a>
+      </footer>
+
+      <a class="whatsapp-float" href="https://wa.me/905409122503" target="_blank" aria-label="WhatsApp ile soru sor">
+        <span>💬</span> Soru Sor
+      </a>
     </div>
-  </div>
-
-  <script src="https://onurqlp.github.io/sifreler/access-control.js"></script>
+  </main>
 
   <script>
-    const correctAnswers = {
-      q1: "b",
-      q2: "a",
-      q3: "a",
-      q4: "b",
-      q5: "a",
-      q6: "a",
-      q7: "a",
-      q8: "b",
-      q9: "a",
-      q10: "a"
-    };
+    /*
+      PAROLALAR
+      Şifreler bu sayfanın içinden değil, aşağıdaki ortak şifre dosyasından alınır:
+      https://onurqlp.github.io/ayda-pass/passwords.json
+    */
+    const PASSWORDS_URL = "https://onurqlp.github.io/ayda-pass/passwords.json";
+    let VALID_PASSWORDS = [];
+    let passwordsLoaded = false;
 
-    function calculateResult() {
-      let score = 0;
-      let empty = 0;
-      const total = Object.keys(correctAnswers).length;
+    const passwordInput = document.getElementById("passwordInput");
+    const loginScreen = document.getElementById("loginScreen");
+    const app = document.getElementById("app");
+    const errorMsg = document.getElementById("errorMsg");
 
-      Object.keys(correctAnswers).forEach(function(questionName) {
-        const selected = document.querySelector('input[name="' + questionName + '"]:checked');
+    function normalizePassword(value) {
+      return String(value || "").trim().toLowerCase();
+    }
 
-        if (!selected) {
-          empty++;
-          return;
+    function isGroupValid(group) {
+      if (group.active === false) return false;
+      if (!group.expires) return true;
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const expireDate = new Date(group.expires + "T23:59:59");
+      return expireDate >= today;
+    }
+
+    fetch(PASSWORDS_URL)
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error("Şifre dosyası alınamadı.");
         }
+        return response.json();
+      })
+      .then(function(data) {
+        VALID_PASSWORDS = data
+          .filter(isGroupValid)
+          .flatMap(function(group) {
+            return group.codes || [];
+          })
+          .map(normalizePassword);
 
-        if (selected.value === correctAnswers[questionName]) {
-          score++;
-        }
+        passwordsLoaded = true;
+      })
+      .catch(function(error) {
+        console.error("Şifreler yüklenemedi:", error);
+        passwordsLoaded = true;
       });
 
-      const resultBox = document.getElementById("testResult");
-      const percent = Math.round((score / total) * 100);
-
-      let message = "";
-
-      if (percent >= 80) {
-        message = "Gayet iyi. A1 temel konularında güçlü görünüyorsunuz.";
-      } else if (percent >= 50) {
-        message = "Orta düzeyde. Bazı temel konuları tekrar etmeniz iyi olur.";
-      } else {
-        message = "Temel tekrar gerekli. Kelime, tanışma cümleleri ve basit gramerden başlanmalı.";
+    function checkPassword() {
+      if (!passwordsLoaded) {
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "Şifreler yükleniyor. Lütfen birkaç saniye sonra tekrar deneyiniz.";
+        return;
       }
 
-      resultBox.style.display = "block";
-      resultBox.innerHTML = `
-        <h2>Test Sonucunuz</h2>
-        <p><strong>Doğru:</strong> ${score} / ${total}</p>
-        <p><strong>Başarı:</strong> %${percent}</p>
-        <p><strong>Boş bırakılan soru:</strong> ${empty}</p>
-        <p>${message}</p>
-      `;
+      const enteredPassword = normalizePassword(passwordInput.value);
 
-      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (VALID_PASSWORDS.includes(enteredPassword)) {
+        localStorage.setItem("aydaPanelAccess", "true");
+        loginScreen.style.display = "none";
+        app.style.display = "block";
+        errorMsg.style.display = "none";
+      } else {
+        errorMsg.textContent = "Parola hatalı. Lütfen tekrar deneyiniz.";
+        errorMsg.style.display = "block";
+        passwordInput.focus();
+      }
     }
 
-    function resetTest() {
-      document.getElementById("a1TestForm").reset();
-      const resultBox = document.getElementById("testResult");
-      resultBox.style.display = "none";
-      resultBox.innerHTML = "";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function aydaLogout() {
-      localStorage.removeItem("ayda_access");
-      localStorage.removeItem("ayda_code");
-      location.reload();
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      const input = document.getElementById("aydaPasswordInput");
-
-      if (input) {
-        input.addEventListener("keydown", function(e) {
-          if (e.key === "Enter") {
-            aydaCheckPassword();
-          }
-        });
+    passwordInput.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        checkPassword();
       }
     });
+
+    if (localStorage.getItem("aydaPanelAccess") === "true") {
+      loginScreen.style.display = "none";
+      app.style.display = "block";
+    }
   </script>
 </body>
 </html>
