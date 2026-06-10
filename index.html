@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AYDA A1 Test</title>
+
+  <style>
+    :root {
+      --ayda-main: #0f6b8f;
+      --ayda-dark: #08384d;
+      --ayda-soft: #eaf7fb;
+      --ayda-border: #cde7ef;
+      --ayda-success: #198754;
+      --ayda-danger: #dc3545;
+      --ayda-warning: #f59e0b;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef9fc, #ffffff);
+      color: var(--text);
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 980px;
+    }
+
+    .header {
+      background: var(--white);
+      border: 1px solid var(--ayda-border);
+      border-radius: 22px;
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 30px rgba(15, 107, 143, 0.08);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ayda-soft);
+      color: var(--ayda-dark);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      color: var(--ayda-dark);
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--ayda-border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(15, 107, 143, 0.08);
+      margin-bottom: 18px;
+    }
+
+    #aydaLoginBox {
+      max-width: 520px;
+      margin: 40px auto;
+    }
+
+    .login-title {
+      margin: 0 0 10px;
+      color: var(--ayda-dark);
+      font-size: 24px;
+    }
+
+    .login-text {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .login-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid var(--ayda-border);
+      border-radius: 14px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input[type="password"]:focus,
+    input[type="text"]:focus {
+      border-color: var(--ayda-main);
+      box-shadow: 0 0 0 3px rgba(15, 107, 143, 0.12);
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .login-btn {
+      min-width: 130px;
+      padding: 14px 18px;
+      background: var(--ayda-main);
+      color: white;
+      font-size: 15px;
+    }
+
+    .login-btn:hover {
+      background: var(--ayda-dark);
+    }
+
+    #aydaLoginMessage {
+      margin-top: 12px;
+      color: var(--ayda-danger);
+      font-weight: 700;
+      min-height: 22px;
+    }
+
+    #aydaProtectedContent {
+      display: none;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .info-box {
+      background: var(--ayda-soft);
+      border: 1px solid var(--ayda-border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .info-box strong {
+      display: block;
+      color: var(--ayda-dark);
+      margin-bottom: 5px;
+    }
+
+    .info-box span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .question {
+      border: 1px solid var(--ayda-border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      background: #ffffff;
+    }
+
+    .question h3 {
+      margin: 0 0 12px;
+      color: var(--ayda-dark);
+      font-size: 18px;
+    }
+
+    .options {
+      display: grid;
+      gap: 9px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .option:hover {
+      background: var(--ayda-soft);
+      border-color: var(--ayda-border);
+    }
+
+    .option input {
+      transform: scale(1.1);
+    }
+
+    .submit-btn {
+      background: var(--ayda-success);
+      color: white;
+      padding: 15px 22px;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      filter: brightness(0.94);
+    }
+
+    .reset-btn {
+      background: #f3f4f6;
+      color: var(--text);
+      padding: 13px 18px;
+      font-size: 15px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid var(--ayda-border);
+      background: var(--ayda-soft);
+    }
+
+    .result h2 {
+      margin: 0 0 8px;
+      color: var(--ayda-dark);
+    }
+
+    .result p {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    .logout {
+      text-align: right;
+      margin-bottom: 12px;
+    }
+
+    .logout button {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 10px 14px;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 14px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .login-row {
+        flex-direction: column;
+      }
+
+      .login-btn {
+        width: 100%;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .header {
+        padding: 18px;
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="container">
+
+      <div id="aydaLoginBox" class="card">
+        <div class="brand">AYDA Dil Akademisi</div>
+        <h2 class="login-title">A1 Test Girişi</h2>
+        <p class="login-text">
+          Bu sayfaya erişmek için size verilen şifreyi giriniz.
+        </p>
+
+        <div class="login-row">
+          <input
+            type="password"
+            id="aydaPasswordInput"
+            placeholder="Şifrenizi giriniz"
+            autocomplete="off"
+          />
+          <button type="button" class="login-btn" onclick="aydaCheckPassword()">
+            Giriş Yap
+          </button>
+        </div>
+
+        <div id="aydaLoginMessage"></div>
+      </div>
+
+      <div id="aydaProtectedContent">
+        <div class="logout">
+          <button type="button" onclick="aydaLogout()">Çıkış Yap</button>
+        </div>
+
+        <div class="header">
+          <div class="brand">AYDA A1 Almanca Test</div>
+          <h1>A1 Seviye Mini Deneme Testi</h1>
+          <p class="subtitle">
+            Bu test A1 seviyesinde temel kelime, günlük ifade ve basit dil bilgisi kontrolü için hazırlanmıştır.
+            Sonucu test sonunda görebilirsiniz.
+          </p>
+
+          <div class="info-grid">
+            <div class="info-box">
+              <strong>Seviye</strong>
+              <span>A1 Başlangıç</span>
+            </div>
+            <div class="info-box">
+              <strong>Soru Sayısı</strong>
+              <span>10 soru</span>
+            </div>
+            <div class="info-box">
+              <strong>Sonuç</strong>
+              <span>Anında puanlama</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="a1TestForm" class="card">
+          <div class="question">
+            <h3>1. “Guten Morgen” ne demektir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q1" value="a"> İyi akşamlar</label>
+              <label class="option"><input type="radio" name="q1" value="b"> Günaydın</label>
+              <label class="option"><input type="radio" name="q1" value="c"> Hoşça kal</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>2. “Ich heiße Ali.” cümlesinin anlamı nedir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q2" value="a"> Ben Ali’yim / Benim adım Ali</label>
+              <label class="option"><input type="radio" name="q2" value="b"> Ali burada değil</label>
+              <label class="option"><input type="radio" name="q2" value="c"> Ali Almanya’da yaşıyor</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>3. “Wie geht es Ihnen?” sorusuna uygun cevap hangisidir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q3" value="a"> Danke, gut.</label>
+              <label class="option"><input type="radio" name="q3" value="b"> Ich komme aus Ankara.</label>
+              <label class="option"><input type="radio" name="q3" value="c"> Ich bin 25 Jahre alt.</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>4. “Ben Türkiye’den geliyorum.” Almanca nasıl söylenir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="a"> Ich wohne in Türkiye.</label>
+              <label class="option"><input type="radio" name="q4" value="b"> Ich komme aus der Türkei.</label>
+              <label class="option"><input type="radio" name="q4" value="c"> Ich spreche Türkisch.</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>5. “der Tisch” kelimesinin Türkçesi nedir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="a"> Masa</label>
+              <label class="option"><input type="radio" name="q5" value="b"> Sandalye</label>
+              <label class="option"><input type="radio" name="q5" value="c"> Kapı</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>6. Doğru cümleyi seçiniz.</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="a"> Ich bin Lehrer.</label>
+              <label class="option"><input type="radio" name="q6" value="b"> Ich bist Lehrer.</label>
+              <label class="option"><input type="radio" name="q6" value="c"> Ich ist Lehrer.</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>7. “Haben Sie Kinder?” sorusunun anlamı nedir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="a"> Çocuğunuz var mı?</label>
+              <label class="option"><input type="radio" name="q7" value="b"> Nerede yaşıyorsunuz?</label>
+              <label class="option"><input type="radio" name="q7" value="c"> Kaç yaşındasınız?</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>8. “Heute” kelimesinin anlamı nedir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q8" value="a"> Yarın</label>
+              <label class="option"><input type="radio" name="q8" value="b"> Bugün</label>
+              <label class="option"><input type="radio" name="q8" value="c"> Dün</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>9. “Ich trinke Wasser.” cümlesinin anlamı nedir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q9" value="a"> Su içiyorum.</label>
+              <label class="option"><input type="radio" name="q9" value="b"> Su satın alıyorum.</label>
+              <label class="option"><input type="radio" name="q9" value="c"> Su istemiyorum.</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>10. “Auf Wiedersehen” ne demektir?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q10" value="a"> Görüşmek üzere</label>
+              <label class="option"><input type="radio" name="q10" value="b"> Teşekkür ederim</label>
+              <label class="option"><input type="radio" name="q10" value="c"> Rica ederim</label>
+            </div>
+          </div>
+
+          <button type="button" class="submit-btn" onclick="calculateResult()">
+            Testi Bitir ve Sonucu Göster
+          </button>
+
+          <button type="button" class="reset-btn" onclick="resetTest()">
+            Testi Sıfırla
+          </button>
+
+          <div id="testResult" class="result"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://onurqlp.github.io/sifreler/access-control.js"></script>
+
+  <script>
+    const correctAnswers = {
+      q1: "b",
+      q2: "a",
+      q3: "a",
+      q4: "b",
+      q5: "a",
+      q6: "a",
+      q7: "a",
+      q8: "b",
+      q9: "a",
+      q10: "a"
+    };
+
+    function calculateResult() {
+      let score = 0;
+      let empty = 0;
+      const total = Object.keys(correctAnswers).length;
+
+      Object.keys(correctAnswers).forEach(function(questionName) {
+        const selected = document.querySelector('input[name="' + questionName + '"]:checked');
+
+        if (!selected) {
+          empty++;
+          return;
+        }
+
+        if (selected.value === correctAnswers[questionName]) {
+          score++;
+        }
+      });
+
+      const resultBox = document.getElementById("testResult");
+      const percent = Math.round((score / total) * 100);
+
+      let message = "";
+
+      if (percent >= 80) {
+        message = "Gayet iyi. A1 temel konularında güçlü görünüyorsunuz.";
+      } else if (percent >= 50) {
+        message = "Orta düzeyde. Bazı temel konuları tekrar etmeniz iyi olur.";
+      } else {
+        message = "Temel tekrar gerekli. Kelime, tanışma cümleleri ve basit gramerden başlanmalı.";
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerHTML = `
+        <h2>Test Sonucunuz</h2>
+        <p><strong>Doğru:</strong> ${score} / ${total}</p>
+        <p><strong>Başarı:</strong> %${percent}</p>
+        <p><strong>Boş bırakılan soru:</strong> ${empty}</p>
+        <p>${message}</p>
+      `;
+
+      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function resetTest() {
+      document.getElementById("a1TestForm").reset();
+      const resultBox = document.getElementById("testResult");
+      resultBox.style.display = "none";
+      resultBox.innerHTML = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function aydaLogout() {
+      localStorage.removeItem("ayda_access");
+      localStorage.removeItem("ayda_code");
+      location.reload();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const input = document.getElementById("aydaPasswordInput");
+
+      if (input) {
+        input.addEventListener("keydown", function(e) {
+          if (e.key === "Enter") {
+            aydaCheckPassword();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
