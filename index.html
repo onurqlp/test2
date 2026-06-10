@@ -30,7 +30,7 @@
       min-height: 100vh;
     }
 
-    #loginScreen {
+    #aydaLoginBox {
       min-height: 100vh;
       display: grid;
       place-items: center;
@@ -104,15 +104,15 @@
       cursor: pointer;
     }
 
-    .error {
-      display: none;
+    #aydaLoginMessage {
       margin-top: 12px;
       color: var(--danger);
       font-size: 13px;
       font-weight: 700;
+      min-height: 18px;
     }
 
-    #app {
+    #aydaProtectedContent {
       display: none;
     }
 
@@ -409,22 +409,22 @@
 </head>
 <body>
 
-  <section id="loginScreen">
+  <section id="aydaLoginBox">
     <div class="login-card">
       <div class="login-logo">AY</div>
       <h1>AYDA Öğrenci Paneli</h1>
       <p>Devam etmek için size verilen sınıf kodunu veya giriş parolasını yazınız.</p>
 
       <div class="password-row">
-        <input id="passwordInput" type="password" placeholder="Giriş parolası" autocomplete="off" />
-        <button class="login-btn" onclick="checkPassword()">Giriş</button>
+        <input id="aydaPasswordInput" type="password" placeholder="Giriş parolası" autocomplete="off" />
+        <button class="login-btn" onclick="aydaCheckPassword()">Giriş</button>
       </div>
 
-      <div id="errorMsg" class="error">Parola hatalı. Lütfen tekrar deneyiniz.</div>
+      <div id="aydaLoginMessage"></div>
     </div>
   </section>
 
-  <main id="app">
+  <main id="aydaProtectedContent">
     <div class="page">
       <section class="hero">
         <div class="badge">AYDA · A1 Öğrenci Giriş Paneli</div>
@@ -549,89 +549,21 @@
     </div>
   </main>
 
+  <script src="https://onurqlp.github.io/ayda-pass/access-control.js"></script>
+
   <script>
-    /*
-      PAROLALAR
-      Şifreler bu sayfanın içinden değil, aşağıdaki ortak şifre dosyasından alınır:
-      https://onurqlp.github.io/ayda-pass/passwords.json
-    */
-    const PASSWORDS_URL = "https://onurqlp.github.io/ayda-pass/passwords.json";
-    let VALID_PASSWORDS = [];
-    let passwordsLoaded = false;
+    document.addEventListener("DOMContentLoaded", function() {
+      const input = document.getElementById("aydaPasswordInput");
 
-    const passwordInput = document.getElementById("passwordInput");
-    const loginScreen = document.getElementById("loginScreen");
-    const app = document.getElementById("app");
-    const errorMsg = document.getElementById("errorMsg");
-
-    function normalizePassword(value) {
-      return String(value || "").trim().toLowerCase();
-    }
-
-    function isGroupValid(group) {
-      if (group.active === false) return false;
-      if (!group.expires) return true;
-
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const expireDate = new Date(group.expires + "T23:59:59");
-      return expireDate >= today;
-    }
-
-    fetch(PASSWORDS_URL)
-      .then(function(response) {
-        if (!response.ok) {
-          throw new Error("Şifre dosyası alınamadı.");
-        }
-        return response.json();
-      })
-      .then(function(data) {
-        VALID_PASSWORDS = data
-          .filter(isGroupValid)
-          .flatMap(function(group) {
-            return group.codes || [];
-          })
-          .map(normalizePassword);
-
-        passwordsLoaded = true;
-      })
-      .catch(function(error) {
-        console.error("Şifreler yüklenemedi:", error);
-        passwordsLoaded = true;
-      });
-
-    function checkPassword() {
-      if (!passwordsLoaded) {
-        errorMsg.style.display = "block";
-        errorMsg.textContent = "Şifreler yükleniyor. Lütfen birkaç saniye sonra tekrar deneyiniz.";
-        return;
-      }
-
-      const enteredPassword = normalizePassword(passwordInput.value);
-
-      if (VALID_PASSWORDS.includes(enteredPassword)) {
-        localStorage.setItem("aydaPanelAccess", "true");
-        loginScreen.style.display = "none";
-        app.style.display = "block";
-        errorMsg.style.display = "none";
-      } else {
-        errorMsg.textContent = "Parola hatalı. Lütfen tekrar deneyiniz.";
-        errorMsg.style.display = "block";
-        passwordInput.focus();
-      }
-    }
-
-    passwordInput.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        checkPassword();
+      if (input) {
+        input.addEventListener("keydown", function(event) {
+          if (event.key === "Enter") {
+            aydaCheckPassword();
+          }
+        });
       }
     });
-
-    if (localStorage.getItem("aydaPanelAccess") === "true") {
-      loginScreen.style.display = "none";
-      app.style.display = "block";
-    }
   </script>
+
 </body>
 </html>
