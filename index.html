@@ -1,0 +1,1557 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#172b52">
+  <meta name="description" content="AYDA Dil Akademisi öğrenci ders tekrarları, materyalleri ve sınav hazırlık kaynakları.">
+  <title>AYDA Öğrenci Kaynak Paneli</title>
+  <style>
+    :root {
+      --navy: #234078;
+      --navy-dark: #172b52;
+      --navy-soft: #eef3fb;
+      --gold: #d8a84f;
+      --green: #11843b;
+      --green-dark: #0b6c2f;
+      --cream: #f6f3ed;
+      --white: #ffffff;
+      --text: #182033;
+      --muted: #5b6474;
+      --line: #ded8ce;
+      --shadow: 0 20px 55px rgba(23, 43, 82, 0.12);
+      --shadow-soft: 0 8px 26px rgba(23, 43, 82, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--cream);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(216, 168, 79, 0.13), transparent 28rem),
+        var(--cream);
+      font-size: 17px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input,
+    a {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 4px solid rgba(216, 168, 79, 0.48);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .wrap {
+      width: min(1220px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    /* Giriş ekranı */
+    #aydaLoginBox {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: max(24px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+      background:
+        linear-gradient(140deg, rgba(23, 43, 82, 0.98), rgba(35, 64, 120, 0.95)),
+        var(--navy-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #aydaLoginBox::before,
+    #aydaLoginBox::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    #aydaLoginBox::before {
+      width: 420px;
+      height: 420px;
+      top: -210px;
+      right: -120px;
+      background: rgba(216, 168, 79, 0.18);
+    }
+
+    #aydaLoginBox::after {
+      width: 320px;
+      height: 320px;
+      left: -180px;
+      bottom: -150px;
+      border: 70px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .login-shell {
+      position: relative;
+      z-index: 1;
+      width: min(1020px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.78fr);
+      border-radius: 32px;
+      background: var(--white);
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(7, 17, 38, 0.32);
+    }
+
+    .login-intro {
+      padding: clamp(34px, 6vw, 72px);
+      color: var(--white);
+      background:
+        linear-gradient(155deg, rgba(35, 64, 120, 0.98), rgba(23, 43, 82, 0.99));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 570px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      margin-bottom: 34px;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 74px;
+      height: 52px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 14px;
+      color: var(--white);
+      font-size: 24px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      box-shadow: inset 0 -4px 0 rgba(216, 168, 79, 0.7);
+    }
+
+    .brand-copy {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .login-intro h1 {
+      max-width: 610px;
+      margin: 0 0 18px;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+    }
+
+    .login-intro p {
+      max-width: 600px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.62;
+    }
+
+    .login-points {
+      display: grid;
+      gap: 13px;
+      margin-top: 34px;
+    }
+
+    .login-point {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-weight: 700;
+    }
+
+    .check {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--navy-dark);
+      font-weight: 950;
+    }
+
+    .login-card {
+      padding: clamp(28px, 5vw, 54px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--white);
+    }
+
+    .login-card .eyebrow {
+      margin: 0 0 9px;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .login-card h2 {
+      margin: 0 0 9px;
+      color: var(--navy-dark);
+      font-size: clamp(27px, 4vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .login-card > p {
+      margin: 0 0 26px;
+      color: var(--muted);
+    }
+
+    .login-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field-label {
+      color: var(--navy-dark);
+      font-size: 16px;
+      font-weight: 850;
+    }
+
+    #aydaPasswordInput {
+      width: 100%;
+      min-height: 60px;
+      padding: 0 17px;
+      border: 2px solid #ccd3df;
+      border-radius: var(--radius-md);
+      background: #fbfcfe;
+      color: var(--text);
+      font-size: 18px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    #aydaPasswordInput::placeholder {
+      color: #8a93a2;
+    }
+
+    #aydaPasswordInput:focus {
+      border-color: var(--navy);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(35, 64, 120, 0.1);
+      outline: 0;
+    }
+
+    .login-button {
+      width: 100%;
+      min-height: 60px;
+      border: 0;
+      border-radius: var(--radius-md);
+      background: var(--green);
+      color: var(--white);
+      cursor: pointer;
+      font-size: 19px;
+      font-weight: 900;
+      box-shadow: 0 9px 22px rgba(17, 132, 59, 0.2);
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .login-button:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(17, 132, 59, 0.25);
+    }
+
+    .login-button:active {
+      transform: translateY(1px);
+    }
+
+    #aydaLoginMessage {
+      min-height: 26px;
+      margin: 2px 0 0;
+      color: #b42318;
+      font-size: 15px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .support-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 17px;
+      padding-top: 18px;
+      border-top: 1px solid #e7e4df;
+    }
+
+    .support-link {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      border: 1px solid #d9dee8;
+      border-radius: 13px;
+      color: var(--navy);
+      background: var(--white);
+      text-decoration: none;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 850;
+      transition: background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .support-link:hover {
+      background: var(--navy-soft);
+      border-color: #b8c7df;
+    }
+
+    .login-note {
+      margin-top: 16px;
+      color: #7b8492;
+      font-size: 13px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    /* Korumalı öğrenci paneli */
+    #aydaProtectedContent {
+      display: none;
+      min-height: 100svh;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(246, 243, 237, 0.95);
+      border-bottom: 1px solid rgba(197, 188, 175, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .header-row {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .panel-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--navy-dark);
+      text-decoration: none;
+    }
+
+    .panel-brand .brand-mark {
+      width: 66px;
+      height: 46px;
+      color: var(--navy-dark);
+      border-color: var(--navy);
+      font-size: 21px;
+      box-shadow: inset 0 -4px 0 rgba(216, 168, 79, 0.75);
+    }
+
+    .panel-brand-text strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .panel-brand-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .logout-button {
+      min-height: 44px;
+      padding: 8px 14px;
+      border: 1px solid #cbd2df;
+      border-radius: 12px;
+      color: var(--navy);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .logout-button:hover {
+      background: #f1f4f8;
+    }
+
+    .level-navigation {
+      padding: 0 0 12px;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .tab {
+      min-height: 55px;
+      padding: 9px 12px;
+      border: 2px solid #d4d8df;
+      border-radius: 15px;
+      color: var(--navy-dark);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 900;
+      transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .tab:hover {
+      border-color: var(--navy);
+      transform: translateY(-1px);
+    }
+
+    .tab.active {
+      color: var(--white);
+      background: var(--navy);
+      border-color: var(--navy);
+      box-shadow: 0 7px 18px rgba(35, 64, 120, 0.2);
+    }
+
+    .panel-main {
+      padding: 30px 0 42px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(25px, 5vw, 48px);
+      border-radius: var(--radius-xl);
+      color: var(--white);
+      background:
+        linear-gradient(140deg, var(--navy-dark), var(--navy));
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "A";
+      position: absolute;
+      right: clamp(10px, 5vw, 64px);
+      top: 50%;
+      transform: translateY(-53%);
+      color: rgba(255, 255, 255, 0.055);
+      font-size: clamp(180px, 28vw, 330px);
+      font-weight: 950;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 830px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 15px;
+      color: #f5d99e;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 27px;
+      height: 3px;
+      border-radius: 99px;
+      background: var(--gold);
+    }
+
+    .hero h1 {
+      margin: 0 0 13px;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.06;
+      letter-spacing: -0.045em;
+    }
+
+    .hero .lead {
+      max-width: 750px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.55;
+    }
+
+    .quick-help {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      max-width: 930px;
+      margin-top: 24px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.55;
+    }
+
+    .quick-help-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      color: var(--navy-dark);
+      background: var(--gold);
+      font-weight: 950;
+    }
+
+    .level-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      margin: 22px 0 0;
+      padding: 17px 19px;
+      border: 1px solid #cbd8eb;
+      border-radius: 17px;
+      color: #263f6a;
+      background: #eef4fc;
+      box-shadow: var(--shadow-soft);
+      line-height: 1.55;
+    }
+
+    .level-note-icon {
+      flex: 0 0 auto;
+      color: var(--gold);
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 34px 0 16px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      color: var(--navy-dark);
+      font-size: clamp(27px, 4vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .resource-count {
+      flex: 0 0 auto;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #e8edf5;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .resource-card {
+      min-width: 0;
+      min-height: 286px;
+      display: flex;
+      flex-direction: column;
+      padding: 21px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--white);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-3px);
+      border-color: #c4cbd7;
+      box-shadow: 0 16px 35px rgba(23, 43, 82, 0.12);
+    }
+
+    .resource-card.featured {
+      border: 2px solid var(--green);
+      background:
+        linear-gradient(180deg, rgba(17, 132, 59, 0.055), transparent 45%),
+        var(--white);
+      box-shadow: 0 14px 34px rgba(17, 132, 59, 0.15);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .resource-type {
+      display: inline-flex;
+      align-items: center;
+      min-height: 31px;
+      padding: 5px 10px;
+      border: 1px solid #d5dbe5;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #f3f6fa;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .resource-type.type-replay {
+      color: #08652c;
+      border-color: #b9dfc7;
+      background: #eaf7ef;
+    }
+
+    .resource-type.type-exam {
+      color: #83550b;
+      border-color: #ead4a5;
+      background: #fff7e6;
+    }
+
+    .card-number {
+      color: #a2a9b5;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .resource-card h3 {
+      margin: 0 0 11px;
+      color: var(--navy-dark);
+      font-size: 23px;
+      line-height: 1.22;
+      letter-spacing: -0.025em;
+    }
+
+    .resource-description {
+      flex: 1;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.58;
+    }
+
+    .open-resource {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 20px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      color: var(--white);
+      background: var(--green);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 950;
+      letter-spacing: 0.03em;
+      box-shadow: 0 8px 19px rgba(17, 132, 59, 0.19);
+      transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .open-resource::after {
+      content: "→";
+      font-size: 22px;
+      transition: transform 0.18s ease;
+    }
+
+    .open-resource:hover {
+      background: var(--green-dark);
+      box-shadow: 0 11px 23px rgba(17, 132, 59, 0.24);
+    }
+
+    .open-resource:hover::after {
+      transform: translateX(3px);
+    }
+
+    .site-footer {
+      padding: 10px 0 max(34px, env(safe-area-inset-bottom));
+      color: #667080;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .site-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 18px;
+      margin-top: 8px;
+    }
+
+    .site-footer a {
+      color: var(--navy);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .site-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 980px) {
+      .login-shell {
+        grid-template-columns: 1fr;
+        width: min(620px, 100%);
+      }
+
+      .login-intro {
+        min-height: 0;
+        padding: 38px;
+      }
+
+      .login-intro h1 {
+        font-size: 40px;
+      }
+
+      .login-points {
+        display: none;
+      }
+
+      .brand {
+        margin-bottom: 22px;
+      }
+
+      .resource-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .tabs {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 16px;
+      }
+
+      .wrap {
+        width: min(100% - 20px, 1220px);
+      }
+
+      #aydaLoginBox {
+        padding: 0;
+        place-items: stretch;
+        background: var(--white);
+      }
+
+      .login-shell {
+        width: 100%;
+        min-height: 100svh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .login-intro {
+        padding: max(26px, env(safe-area-inset-top)) 22px 28px;
+      }
+
+      .login-intro h1 {
+        margin-bottom: 13px;
+        font-size: 33px;
+      }
+
+      .login-intro p {
+        font-size: 17px;
+        line-height: 1.52;
+      }
+
+      .brand {
+        margin-bottom: 19px;
+      }
+
+      .brand-mark {
+        width: 67px;
+        height: 47px;
+        font-size: 21px;
+      }
+
+      .login-card {
+        justify-content: flex-start;
+        padding: 28px 20px max(26px, env(safe-area-inset-bottom));
+      }
+
+      .login-card h2 {
+        font-size: 27px;
+      }
+
+      #aydaPasswordInput,
+      .login-button {
+        min-height: 58px;
+      }
+
+      .support-links {
+        grid-template-columns: 1fr;
+      }
+
+      .header-row {
+        min-height: 67px;
+      }
+
+      .panel-brand-text {
+        display: none;
+      }
+
+      .panel-brand .brand-mark {
+        width: 59px;
+        height: 42px;
+        font-size: 19px;
+      }
+
+      .level-navigation {
+        padding-bottom: 9px;
+      }
+
+      .tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      .tab {
+        min-height: 54px;
+        font-size: 17px;
+      }
+
+      .panel-main {
+        padding-top: 16px;
+      }
+
+      .hero {
+        padding: 25px 20px;
+        border-radius: 22px;
+      }
+
+      .hero h1 {
+        font-size: 31px;
+      }
+
+      .hero .lead {
+        font-size: 17px;
+      }
+
+      .hero::after {
+        right: -10px;
+        font-size: 190px;
+      }
+
+      .quick-help {
+        padding: 14px;
+        font-size: 15px;
+      }
+
+      .level-note {
+        padding: 15px;
+        font-size: 15px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 27px;
+      }
+
+      .section-heading h2 {
+        font-size: 28px;
+      }
+
+      .resource-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+      }
+
+      .resource-card {
+        min-height: 0;
+        padding: 19px;
+      }
+
+      .resource-card h3 {
+        font-size: 22px;
+      }
+
+      .resource-description {
+        font-size: 16px;
+      }
+
+      .open-resource {
+        min-height: 58px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="aydaLoginBox" aria-labelledby="loginPageTitle">
+    <div class="login-shell">
+      <div class="login-intro">
+        <div class="brand" aria-label="AYDA Dil Akademisi">
+          <div class="brand-mark" aria-hidden="true">AYDA</div>
+          <div class="brand-copy">Dil Akademisi</div>
+        </div>
+        <h1 id="loginPageTitle">AYDA Öğrenci Kaynak Paneli</h1>
+        <p>Ders tekrarları, sınıf materyalleri ve sınav hazırlık kaynaklarına tek yerden ulaşın.</p>
+        <div class="login-points" aria-hidden="true">
+          <div class="login-point"><span class="check">✓</span> Seviyene uygun tüm kaynaklar</div>
+          <div class="login-point"><span class="check">✓</span> Ders tekrarlarına hızlı erişim</div>
+          <div class="login-point"><span class="check">✓</span> Sınav hazırlık içerikleri</div>
+        </div>
+      </div>
+
+      <div class="login-card">
+        <p class="eyebrow">Öğrenci Girişi</p>
+        <h2>Kaynaklarını aç</h2>
+        <p>Öğretmeninizin veya AYDA ekibinin verdiği sınıf kodunu yazın.</p>
+
+        <form class="login-form" onsubmit="event.preventDefault(); aydaCheckPassword();">
+          <label class="field-label" for="aydaPasswordInput">Sınıf kodu</label>
+          <input
+            id="aydaPasswordInput"
+            name="aydaPasswordInput"
+            type="password"
+            placeholder="Sınıf kodunuzu yazın"
+            autocomplete="current-password"
+            autocapitalize="none"
+            spellcheck="false"
+          >
+          <button class="login-button" type="submit">GİRİŞ YAP</button>
+          <p id="aydaLoginMessage" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="support-links" aria-label="Yardım bağlantıları">
+          <a class="support-link" href="https://wa.me/905409122503" target="_blank" rel="noopener">WhatsApp Destek</a>
+          <a class="support-link" href="https://www.aydadil.com" target="_blank" rel="noopener">AYDA Web Sitesi</a>
+        </div>
+        <div class="login-note">Kodunuz çalışmıyorsa WhatsApp üzerinden AYDA ekibine ulaşabilirsiniz.</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="aydaProtectedContent">
+    <header class="site-header">
+      <div class="wrap">
+        <div class="header-row">
+          <a class="panel-brand" href="#panelTop" aria-label="AYDA panelinin başına dön">
+            <span class="brand-mark" aria-hidden="true">AYDA</span>
+            <span class="panel-brand-text">
+              <strong>Öğrenci Kaynak Paneli</strong>
+              <span>AYDA Dil Akademisi</span>
+            </span>
+          </a>
+          <button class="logout-button" type="button" onclick="logoutAyda()">Çıkış Yap</button>
+        </div>
+        <nav class="level-navigation" aria-label="Seviye seçimi">
+          <div class="tabs" id="tabs"></div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="panel-main" id="panelTop">
+      <div class="wrap">
+        <section class="hero" aria-labelledby="panelTitle">
+          <div class="hero-content">
+            <p class="hero-kicker">Online Öğrenci Merkezi</p>
+            <h1 id="panelTitle">AYDA Öğrenci Kaynak Paneli</h1>
+            <p class="lead" id="heroText">Seviyeni seç, önce ders tekrarını aç, sonra ihtiyacın olan kaynağa gir.</p>
+          </div>
+          <div class="quick-help">
+            <span class="quick-help-icon" aria-hidden="true">i</span>
+            <div><strong>En basit kullanım:</strong> Üstten seviyeni seç → ilk karttan <strong>Ders Tekrarları</strong>na gir → sınav çalışacaksan aynı seviyedeki sınav kartlarını kullan.</div>
+          </div>
+        </section>
+
+        <aside class="level-note" id="note" aria-live="polite"></aside>
+
+        <section aria-labelledby="sectionTitle">
+          <div class="section-heading">
+            <h2 id="sectionTitle">A1 Kaynakları</h2>
+            <div class="resource-count" id="count"></div>
+          </div>
+          <div class="resource-grid" id="grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div>AYDA Dil Akademisi · Online Almanca kaynak paneli</div>
+        <div class="site-footer-links">
+          <a href="https://wa.me/905409122503" target="_blank" rel="noopener">WhatsApp Destek</a>
+          <a href="https://www.aydadil.com" target="_blank" rel="noopener">aydadil.com</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const LEVEL_DATA = {
+      A1: [
+        {
+          title: "Ders Tekrarları",
+          desc: "Kaçırdığınız dersi izlemek veya bir konuyu yeniden çalışmak için önce burayı açın. Online öğrenciler için ilk bakılacak kaynak budur.",
+          url: "https://onurqlp.github.io/TEKRARLAR/",
+          type: "Ders tekrarı",
+          kind: "replay"
+        },
+        {
+          title: "A1 Sınıf Açıklaması",
+          desc: "A1 sınıfının programı, derslerin nasıl ilerlediği ve bilmeniz gereken temel açıklamalar burada yer alır.",
+          url: "https://onurqlp.github.io/sinifaciklama/a1.html",
+          type: "Sınıf bilgisi",
+          kind: "class"
+        },
+        {
+          title: "A1 Ders Materyalleri",
+          desc: "A1 dersinde kullanılan kitap, PDF, çalışma dosyaları ve ek materyallerin bulunduğu klasörü açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1EhcIIju4RZyB5HfcccAF6q8nHIou2uwT#grid",
+          type: "Ders materyali",
+          kind: "material"
+        },
+        {
+          title: "A1 Menschen Ders Videoları",
+          desc: "A1 Menschen kitabına uygun ders video kayıtlarını izleyin. Kaçırdığınız veya tekrar etmek istediğiniz dersler için kullanın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1mv_Crm7n8s1javra-rW4a7fGz6PkFjQZ#grid",
+          type: "Video",
+          kind: "video"
+        },
+        {
+          title: "A1 Ek Materyaller",
+          desc: "A1 seviyesini güçlendiren ek çalışma kağıtlarına, alıştırmalara ve destek dosyalarına buradan ulaşın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1vxr47d-wdfN6bBQfUJwKXvmv4luPiasq#grid",
+          type: "Ek çalışma",
+          kind: "material"
+        },
+        {
+          title: "A1 Cümle Kalıpları",
+          desc: "A1 seviyesinde konuşurken ve yazarken kullanabileceğiniz temel cümle kalıplarını çalışın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1VAz1AtWp4RDmmRddSZwqQr5XtfszjkOS#grid",
+          type: "Konuşma",
+          kind: "language"
+        },
+        {
+          title: "A1 Hazırlık Sitesi",
+          desc: "A1 konularını genel olarak tekrar etmek ve ek çalışmalar yapmak için hazırlanmış AYDA sayfasını açın.",
+          url: "https://onurqlp.github.io/A1hazirlik/",
+          type: "Ek çalışma",
+          kind: "material"
+        },
+        {
+          title: "A1 Arbeitsbuch Dinlemeleri",
+          desc: "A1 Arbeitsbuch dinleme dosyalarını nasıl indireceğinizi gösteren kısa anlatım videosunu izleyin.",
+          url: "https://www.youtube.com/watch?v=SgLBimupSIU",
+          type: "Dinleme",
+          kind: "language"
+        },
+        {
+          title: "Nicos Weg A1",
+          desc: "Günlük Almanca pratiği yapmak için DW'nin A1 seviyesindeki dinleme ve izleme çalışmalarını kullanın.",
+          url: "https://learngerman.dw.com/tr/nicos-weg/c-54846011",
+          type: "Dinleme",
+          kind: "language"
+        },
+        {
+          title: "Quizlet A1 Menschen",
+          desc: "A1 Menschen kitabındaki kelimeleri dijital kelime kartlarıyla kolayca tekrar edin.",
+          url: "https://quizlet.com/onurqlp/folders/menschen-a1?x=1xqt&i=3m8fpg",
+          type: "Kelime",
+          kind: "language"
+        },
+        {
+          title: "A1 Konu Anlatımları",
+          desc: "A1 konularını kısa videolarla yeniden dinlemek için YouTube konu anlatım listesini açın.",
+          url: "https://www.youtube.com/playlist?list=PLlPnminIi7ZFg8jGfuZqcMvQEPS6Dubaj",
+          type: "Video",
+          kind: "video"
+        },
+        {
+          title: "ÖSD A1 Hazırlık Sitesi",
+          desc: "ÖSD A1 sınavına hazırlanırken bölüm anlatımları ve özel çalışma kaynakları için bu AYDA sayfasını kullanın.",
+          url: "https://www.aydadil.com/osd_a1_hazirlik/",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        },
+        {
+          title: "ÖSD A1 Ana Sayfa",
+          desc: "ÖSD A1 sınav formatını öğrenmek ve sınavın bölümlerine göre çalışmak için ana hazırlık sayfasını açın.",
+          url: "https://onurqlp.github.io/osd_a1_ayda/",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        },
+        {
+          title: "ÖSD A1 Denemeler",
+          desc: "Gerçek sınava benzer ÖSD A1 denemelerini çözün. Özellikle sınava yakın dönemde kullanın.",
+          url: "https://onurqlp.github.io/osda1denemeler/",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        },
+        {
+          title: "ÖSD A1 Sprechen",
+          desc: "ÖSD A1 konuşma bölümü için örnekleri inceleyin ve konuşma çalışmalarını uygulayın.",
+          url: "https://onurqlp.github.io/osda1sprehcen/",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        },
+        {
+          title: "A1 Sınav Hazırlık Drive",
+          desc: "A1 sınavına yönelik deneme, çalışma dosyası ve ek sınav materyallerinin bulunduğu klasörü açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1YolSViv4puykU6wfwTrQ2eswN9MhbCq8#grid",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        }
+      ],
+      A2: [
+        {
+          title: "Ders Tekrarları",
+          desc: "A2 ders kayıtlarını yeniden izlemek ve kaçırdığınız konuları tamamlamak için önce burayı açın.",
+          url: "https://onurqlp.github.io/TEKRARLAR/",
+          type: "Ders tekrarı",
+          kind: "replay"
+        },
+        {
+          title: "A2 Sınıf Açıklaması",
+          desc: "A2 sınıfının programı, derslerin nasıl ilerlediği ve bilmeniz gereken açıklamalar burada yer alır.",
+          url: "https://onurqlp.github.io/sinifaciklama/a2.html",
+          type: "Sınıf bilgisi",
+          kind: "class"
+        },
+        {
+          title: "A2 Ders Materyalleri",
+          desc: "A2 dersinde kullanılan kitaplara, PDF dosyalarına ve yararlı çalışma materyallerine buradan ulaşın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1eRkHhSQ0cVnbMVOtvR-nDcOZRUFJOEKH#grid",
+          type: "Ders materyali",
+          kind: "material"
+        },
+        {
+          title: "A2 Menschen Ders Videoları",
+          desc: "A2 Menschen kitabına göre hazırlanmış ders videolarını izleyerek konuları tekrar edin.",
+          url: "https://drive.google.com/embeddedfolderview?id=10KGAPnOKlfd3trMtY4paFsJDCbGNok9k#grid",
+          type: "Video",
+          kind: "video"
+        },
+        {
+          title: "A2 Konu Anlatım Videoları",
+          desc: "A2 konularını yeniden öğrenmek veya pekiştirmek için konu anlatım videolarını açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1dkvJRQmwMAy4-xima2GhujCnFhRwq63B#grid",
+          type: "Video",
+          kind: "video"
+        },
+        {
+          title: "A2 Kelime",
+          desc: "A2 seviyesinde sık kullanılan kelimeleri öğrenmek ve tekrar etmek için hazırlanmış sayfayı açın.",
+          url: "https://onurqlp.github.io/a2kelime/",
+          type: "Kelime",
+          kind: "language"
+        },
+        {
+          title: "A2 Konuşma Kalıpları",
+          desc: "A2 konuşma pratiğinde kullanabileceğiniz hazır cümleleri ve günlük konuşma kalıplarını çalışın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1v1KnsUELnxaqwKEhN_8ruqGDOkHbrYFG#grid",
+          type: "Konuşma",
+          kind: "language"
+        },
+        {
+          title: "Quizlet A2 Menschen",
+          desc: "A2 Menschen kitabındaki kelimeleri dijital kelime kartlarıyla tekrar edin.",
+          url: "https://quizlet.com/Saalihyilmazz/folders/menschen-a2?i=195vch&x=1xQY",
+          type: "Kelime",
+          kind: "language"
+        },
+        {
+          title: "Arbeitsbuch Dinlemeleri",
+          desc: "A2 Arbeitsbuch dinleme dosyalarını nasıl indireceğinizi gösteren anlatım videosunu izleyin.",
+          url: "https://www.youtube.com/watch?v=GHf6eOr6MU0",
+          type: "Dinleme",
+          kind: "language"
+        },
+        {
+          title: "TELC A2 Kelimeler",
+          desc: "TELC A2 sınavında işinize yarayacak kelimeleri sınav odaklı olarak çalışın.",
+          url: "https://onurqlp.github.io/telca2kelimelerr/",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        },
+        {
+          title: "A2 Sınav Hazırlık Drive",
+          desc: "A2 sınav hazırlığı için deneme, örnek ve ek çalışma dosyalarının bulunduğu klasörü açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1zA2N_LlWTlHmUeEE1uay1pORqTvQBbSm#grid",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        }
+      ],
+      B1: [
+        {
+          title: "Ders Tekrarları",
+          desc: "B1 ders kayıtlarını yeniden izlemek ve anlamadığınız konuları tekrar etmek için önce burayı açın.",
+          url: "https://onurqlp.github.io/TEKRARLAR/",
+          type: "Ders tekrarı",
+          kind: "replay"
+        },
+        {
+          title: "B1 Sınıf Açıklaması",
+          desc: "B1 sınıfının ders düzeni, işleyişi ve öğrencilerin bilmesi gereken açıklamalar burada yer alır.",
+          url: "https://onurqlp.github.io/sinifaciklama/b1.html",
+          type: "Sınıf bilgisi",
+          kind: "class"
+        },
+        {
+          title: "B1 Ders Dosyaları",
+          desc: "B1 dersinde kullanılan ana kaynakları, çalışma dosyalarını ve materyalleri açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1-4HicuJ5pDdyZim4mT_2ougN2v-vEwPD#grid",
+          type: "Ders materyali",
+          kind: "material"
+        },
+        {
+          title: "B1 Yararlı Videolar ve Materyaller",
+          desc: "B1 seviyesini destekleyen ek videolara, dosyalara ve çalışma materyallerine ulaşın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1AnFbEW5pq2G6_7y2tA1-EReVj_LBibTm#grid",
+          type: "Video ve materyal",
+          kind: "video"
+        },
+        {
+          title: "B1 Bilgilendirme Dokümanı",
+          desc: "B1 seviyesiyle ilgili genel açıklamaları ve önemli bilgileri bu dokümandan okuyun.",
+          url: "https://docs.google.com/document/d/1__fPtBM9tD_eNiaz88XTlO1VS-6P3ophA3x4FJyirXE/preview",
+          type: "Sınıf bilgisi",
+          kind: "class"
+        },
+        {
+          title: "B1-B2 Okuma Metinleri",
+          desc: "Okuma hızınızı ve anlama becerinizi geliştirmek için B1-B2 seviyesindeki metinleri çalışın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1Db5TITLZrBDc01FptVUm0_VoLDdSVG3x#grid",
+          type: "Okuma",
+          kind: "language"
+        },
+        {
+          title: "Almanca Dergi ve Gazete",
+          desc: "Doğal Almanca metinler okumak ve okuma alışkanlığı kazanmak için dergi ve gazete kaynaklarını açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1fvIHKArOr8QCOryBSK7-BdXNZmb04XNU#grid",
+          type: "Okuma",
+          kind: "language"
+        },
+        {
+          title: "Arbeitsbuch Dinlemeleri",
+          desc: "Arbeitsbuch dinleme dosyalarını nasıl indireceğinizi gösteren anlatım videosunu izleyin.",
+          url: "https://www.youtube.com/watch?v=GHf6eOr6MU0",
+          type: "Dinleme",
+          kind: "language"
+        },
+        {
+          title: "TELC Hazırlık",
+          desc: "TELC sınavına hazırlanırken sınav bölümlerine göre çalışmak için hazırlık platformunu açın.",
+          url: "https://onurqlp.github.io/telchazirlik/",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        },
+        {
+          title: "B1 Sınav Hazırlık Drive",
+          desc: "B1 sınavına yönelik deneme, örnek ve çalışma dosyalarının bulunduğu klasörü açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1fJ10MSgOCluvbN7GQVTn7hU-WHbRZoDB#grid",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        }
+      ],
+      B2: [
+        {
+          title: "Ders Tekrarları",
+          desc: "B2 ders kayıtlarını yeniden izlemek ve konuları pekiştirmek için önce burayı açın.",
+          url: "https://onurqlp.github.io/TEKRARLAR/",
+          type: "Ders tekrarı",
+          kind: "replay"
+        },
+        {
+          title: "B2 Kitap ve Ders Kaynakları",
+          desc: "B1-B2 kitaplarına ve derste kullanılan temel kaynaklara bu klasörden ulaşın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1nwBOKfm6XL5TQZKNpQTonkJ21Qe5oF-w#grid",
+          type: "Ders materyali",
+          kind: "material"
+        },
+        {
+          title: "B1-B2 Yararlı Videolar ve Materyaller",
+          desc: "B2 seviyesini destekleyen videoları ve ek çalışma materyallerini açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1AnFbEW5pq2G6_7y2tA1-EReVj_LBibTm#grid",
+          type: "Video ve materyal",
+          kind: "video"
+        },
+        {
+          title: "B2 YouTube Ders Listesi",
+          desc: "B2 seviyesine uygun dersleri ve konu anlatımlarını YouTube oynatma listesinden izleyin.",
+          url: "https://www.youtube.com/playlist?list=PLk1fjOl39-51lvdiuQYsLW-0aGIdNNknA",
+          type: "Video",
+          kind: "video"
+        },
+        {
+          title: "B1-B2 Okuma Metinleri",
+          desc: "Okuma hızınızı ve anlama becerinizi geliştirmek için B1-B2 seviyesindeki metinleri çalışın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1Db5TITLZrBDc01FptVUm0_VoLDdSVG3x#grid",
+          type: "Okuma",
+          kind: "language"
+        },
+        {
+          title: "Almanca Dergi ve Gazete",
+          desc: "B2 seviyesinde doğal Almanca okumalar yapmak için dergi ve gazete kaynaklarını açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1fvIHKArOr8QCOryBSK7-BdXNZmb04XNU#grid",
+          type: "Okuma",
+          kind: "language"
+        },
+        {
+          title: "Arbeitsbuch Dinlemeleri",
+          desc: "B2 Arbeitsbuch dinleme dosyalarına nasıl ulaşacağınızı gösteren anlatım videosunu izleyin.",
+          url: "https://www.youtube.com/watch?v=GHf6eOr6MU0",
+          type: "Dinleme",
+          kind: "language"
+        },
+        {
+          title: "B2 Sınav Hazırlık Drive",
+          desc: "B2 sınavına yönelik dosyaların, örneklerin ve çalışma materyallerinin bulunduğu klasörü açın.",
+          url: "https://drive.google.com/embeddedfolderview?id=1cQSd1Jjo8hvFhVHCJrwdzE8JMwMJnQZ9#grid",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        },
+        {
+          title: "TELC Hazırlık",
+          desc: "TELC sınavına hazırlanırken sınav bölümlerine göre çalışmak için hazırlık platformunu açın.",
+          url: "https://onurqlp.github.io/telchazirlik/",
+          type: "Sınav",
+          kind: "exam",
+          exam: true
+        }
+      ],
+      C1: [
+        {
+          title: "Ders Tekrarları",
+          desc: "C1 ders kayıtlarını yeniden izlemek ve ileri seviye konuları tekrar etmek için önce burayı açın.",
+          url: "https://onurqlp.github.io/TEKRARLAR/",
+          type: "Ders tekrarı",
+          kind: "replay"
+        },
+        {
+          title: "C1 Sınıf Açıklaması",
+          desc: "C1 sınıfının ders işleyişi ve bilmeniz gereken önemli açıklamalar burada yer alır.",
+          url: "https://onurqlp.github.io/sinifaciklama/C1.html",
+          type: "Sınıf bilgisi",
+          kind: "class"
+        },
+        {
+          title: "Online Kütüphane",
+          desc: "C1 seviyesinde okuma ve genel Almanca çalışmaları için AYDA online kaynak kütüphanesini açın.",
+          url: "https://onurqlp.github.io/bibliothek/",
+          type: "Ders materyali",
+          kind: "material"
+        },
+        {
+          title: "Ders Kitapları",
+          desc: "İleri seviye Almanca çalışırken kullanabileceğiniz kitap ve kaynak bağlantılarına ulaşın.",
+          url: "https://onurqlp.github.io/derskitaplari/",
+          type: "Ders materyali",
+          kind: "material"
+        }
+      ]
+    };
+
+    const EXAM_DATA = Object.entries(LEVEL_DATA).flatMap(([level, resources]) =>
+      resources
+        .filter(resource => resource.exam)
+        .map(resource => ({ ...resource, level }))
+    );
+
+    const TABS = ["A1", "A2", "B1", "B2", "C1", "Sınavlar"];
+    let activeLevel = "A1";
+
+    const tabsElement = document.getElementById("tabs");
+    const gridElement = document.getElementById("grid");
+    const sectionTitleElement = document.getElementById("sectionTitle");
+    const countElement = document.getElementById("count");
+    const noteElement = document.getElementById("note");
+    const heroTextElement = document.getElementById("heroText");
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[character]));
+    }
+
+    function getActiveResources() {
+      return activeLevel === "Sınavlar"
+        ? EXAM_DATA
+        : (LEVEL_DATA[activeLevel] || []);
+    }
+
+    function renderTabs() {
+      tabsElement.innerHTML = "";
+
+      TABS.forEach(level => {
+        const button = document.createElement("button");
+        const isActive = level === activeLevel;
+
+        button.type = "button";
+        button.className = "tab" + (isActive ? " active" : "");
+        button.textContent = level;
+        button.setAttribute("aria-pressed", String(isActive));
+        button.addEventListener("click", () => setActiveLevel(level));
+        tabsElement.appendChild(button);
+      });
+    }
+
+    function createResourceCard(resource, index) {
+      const article = document.createElement("article");
+      const isFeatured = index === 0 && activeLevel !== "Sınavlar";
+      const typePrefix = activeLevel === "Sınavlar" && resource.level
+        ? resource.level + " · "
+        : "";
+
+      article.className = "resource-card" + (isFeatured ? " featured" : "");
+      article.innerHTML = `
+        <div class="card-top">
+          <span class="resource-type type-${escapeHtml(resource.kind)}">${escapeHtml(typePrefix + resource.type)}</span>
+          <span class="card-number" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+        </div>
+        <h3>${escapeHtml(resource.title)}</h3>
+        <p class="resource-description">${escapeHtml(resource.desc)}</p>
+        <a
+          class="open-resource"
+          href="${escapeHtml(resource.url)}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="${escapeHtml(resource.title)} kaynağını aç"
+        >AÇ</a>
+      `;
+
+      return article;
+    }
+
+    function renderCards() {
+      const resources = getActiveResources();
+      gridElement.innerHTML = "";
+
+      resources.forEach((resource, index) => {
+        gridElement.appendChild(createResourceCard(resource, index));
+      });
+
+      sectionTitleElement.textContent = activeLevel === "Sınavlar"
+        ? "Sınav Hazırlık Kaynakları"
+        : activeLevel + " Kaynakları";
+      countElement.textContent = resources.length + " kaynak";
+
+      if (activeLevel === "Sınavlar") {
+        heroTextElement.textContent = "Tüm sınav hazırlık bağlantıları tek yerde. Bu kaynaklar kendi seviyelerinin içinde de bulunur.";
+        noteElement.innerHTML = '<span class="level-note-icon" aria-hidden="true">★</span><div><strong>Sınavlar bölümü:</strong> A1, A2, B1 ve B2 sınav hazırlık kaynakları burada toplandı. Kartın üzerindeki etiketten seviyesini görebilirsiniz.</div>';
+      } else {
+        heroTextElement.textContent = "Seviyeni seç, önce ders tekrarını aç, sonra ihtiyacın olan kaynağa gir.";
+        noteElement.innerHTML = `<span class="level-note-icon" aria-hidden="true">★</span><div><strong>${escapeHtml(activeLevel)} öğrencisi için önerilen sıra:</strong> Önce <strong>Ders Tekrarları</strong>, sonra sınıf bilgileri ve ders materyalleri. Sınava hazırlanıyorsanız listenin sonundaki <strong>Sınav</strong> kartlarını açın.</div>`;
+      }
+    }
+
+    function setActiveLevel(level) {
+      if (!TABS.includes(level)) return;
+      activeLevel = level;
+      renderTabs();
+      renderCards();
+
+      const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+      const targetTop = document.getElementById("panelTop").getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+    }
+
+    function logoutAyda() {
+      if (typeof window.aydaClearAccess === "function") {
+        window.aydaClearAccess();
+      } else {
+        localStorage.removeItem("ayda_access");
+        localStorage.removeItem("ayda_code");
+        sessionStorage.removeItem("ayda_access");
+        sessionStorage.removeItem("ayda_code");
+      }
+
+      window.location.reload();
+    }
+
+    renderTabs();
+    renderCards();
+  </script>
+
+  <script src="https://onurqlp.github.io/ayda-pass/access-control.js"></script>
+</body>
+</html>
