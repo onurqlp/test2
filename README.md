@@ -1,21 +1,28 @@
-# AYDA A1 — Ders Tekrarı
+# AYDA A1 Akademi — Final GitHub Pages
 
-**Mobil öncelikli**, öğrencinin videolara ve 24 ünitedeki interaktif alıştırmalara odaklandığı statik GitHub Pages sitesi.
+AYDA Dil Akademisi kendi hızında A1 Almanca öğrenme alanı. **24 Menschen A1 ünitesi**, her ünitede **3 mevcut ders videosu/materyali**, tüm orijinal konu anlatımları, Türkçe ipuçları, Almanca örnekler, Arbeitsbuch notları, **24 özgün alıştırma/ünite (576 soru)** ve ilerleme kaydı korunur.
 
-## GitHub’a kurulum
+## Öğrenci deneyimi
 
-1. ZIP'i çıkarıp içindeki **index.html**, **assets** klasörü ve **og.png** dosyasını GitHub deposunun **köküne** yükleyin. `README.md` dosyasını da yükleyebilirsiniz.
-2. GitHub → **Settings → Pages** → **Build and deployment** → Deploy from a branch → `main` → `/(root)` → Save.
-3. Web adresinin oluşmasını bekleyin ve telefondan açın.
+1. Öğrenci ana sayfadan **Üniteler**e geçer, ilgili ünitesini açar.
+2. **Ünite ders videosu**, **Kısa konu tekrarı** ve **Konuşma kalıpları** üst sekmeleri ile içerik sayfa içinde oynatılır/gösterilir. **⛶ Büyüt** ekranı örter, **✕ Kapat** dersi geri getirir; Escape tuşu çalışır.
+3. Öğrenci ayrıntılı Türkçe konu anlatımlarını, örnek cümleleri ve kitap notlarını okur.
+4. **24 Alıştırmaya Başla** butonuyla çoktan seçmeli, eşleştirme, kelime sıralama ve diğer görevleri çözer. Yanlışlarda açıklamalar gösterilir.
+5. Ders kayıtları, ek kaynaklar, mini sınav pratiği yalnızca **Ek kaynaklar** bölümünde ikincil olarak bulunur.
 
-### Eski dosyalar varsa
+## GitHub Pages kurulumu
 
-Yeni `index.html` ve yeni `assets` dosyalarını kök dizine yükleyin. Önceki `assets/index-*.js`, `assets/index-*.css` dosyaları artık kullanılmaz; isterseniz GitHub'dan silebilirsiniz.
+1. Bu arşivi çıkar. İçindeki `index.html`, `assets/`, `og.png` ve `README.md` dosyalarını **GitHub deponun ana dizinine** yükle.
+2. GitHub deposunun `Settings > Pages` bölümünde `main` branch ve `/(root)` seç.
+3. Özel alan adı kullanıyorsan GitHub Pages Custom domain yapılandırmasını koru.
+4. Yayına alındıktan sonra tarayıcı önbelleğini yenile; bağlantıları bir telefon üzerinden de kontrol et.
 
-### İçerik ve parola
+## Önemli teknik notlar
 
-- 24 ünitenin soru sistemi, doğru cevaplar, açıklamalar ve ilerleme kaydı korunmuştur.
-- Ünite videoları kaynak ZIP'te bulunan AYDA Google Drive ve YouTube bağlantılarını kullanır.
-- **Mevcut sınıf şifresi altyapısı korunmuştur:** `https://onurqlp.github.io/ayda-pass/access-control.js`. Şifreyi bu ZIP içinde değiştirmeye çalışmayın.
-- Soru ilerlemesi tarayıcının yerel depolama alanında kayıtlıdır, hesaplar arasında senkronize edilmez.
-- Site GitHub Pages gibi HTTPS üzerinden statik sunucuda barındırılmak üzere hazırlanmıştır.
+- Mevcut **sınıf şifresi kontrolü** aynen korunur: `https://onurqlp.github.io/ayda-pass/access-control.js` (başka hesaba taşınmadı).
+- Öğrenci ilerleme anahtarı korunur: `ayda-a1-progress-v3`, sadece aynı tarayıcıda yerel olarak saklanır.
+- Kendi hızında çalışma (asenkron/offline ders) platformudur. **Bu, internetsiz video izleme anlamına gelmez.** Google Drive/YouTube videoları ve harici şifre kontrolü için internet gerekir.
+- Drive dosyaları `.../file/d/DOSYA_ID/preview` üzerinden iframe'de açılır. Erişim izni veya barındırıcı kısıtı nedeniyle oynatılamayan içerik için **Açılmazsa kaynağı aç** yedek bağlantısı sağlanır.
+- Gerçek AYDA logo dosyası kullanıcı tarafından sağlanan AYDA master tema metninden alınmıştır.
+- Alıştırma soruları ve cevapları mevcut JS veri kümesinden değiştirilmeden tutulmuştur.
+- `assets/base.css` orijinal; `assets/study.css` eğitim amaçlı yeni mobil tema; `assets/app-ayda-a1.js` eğitim arayüzü.

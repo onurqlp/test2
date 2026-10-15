@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#18386a">
+  <meta name="theme-color" content="#0b1b31">
   <meta name="description" content="AYDA A1 ders tekrarı: 24 ünite, ders videoları ve interaktif Almanca alıştırmaları. Öğrenciler için sade çalışma alanı.">
   <meta property="og:title" content="AYDA A1 | Ders Tekrarı">
   <meta property="og:description" content="Üniteni seç, videonu izle ve soruları çöz.">
   <link rel="icon" type="image/png" href="./og.png">
-  <title>AYDA A1 | Ders Tekrarı ve Alıştırmalar</title>
+  <title>AYDA A1 Akademi | Video, Konu Anlatımı ve Alıştırmalar</title>
   <link rel="stylesheet" href="./assets/base.css">
   <link rel="stylesheet" href="./assets/study.css">
   <style>
@@ -16,7 +16,7 @@
     #aydaProtectedContent {display:none}
     #aydaLoginBox{position:fixed;inset:0;z-index:999999;display:grid;place-items:center;overflow-y:auto;min-height:100vh;min-height:100dvh;padding:max(16px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));background:#f3f6fc;color:#183356;font-family:Inter,system-ui,-apple-system,'Segoe UI',Arial,sans-serif}
     #aydaLoginBox .ayda-login-card{background:#fff;border:1px solid #dce6f4;box-shadow:0 20px 50px rgba(23,52,102,.14);width:min(100%,420px);padding:clamp(23px,5vw,34px);border-radius:24px}
-    #aydaLoginBox .ayda-login-logo{background:#1a3c70;color:#f8ca6e;border-radius:15px;width:66px;height:66px;display:grid;place-items:center;margin:0 auto 18px;font-size:22px;font-weight:950;letter-spacing:.03em}
+    #aydaLoginBox .ayda-login-logo{background:#0b1b31;border-radius:12px;width:174px;height:74px;display:grid;place-items:center;margin:0 auto 18px;padding:10px}#aydaLoginBox .ayda-login-logo img{display:block;max-width:100%;height:auto;object-fit:contain}
     #aydaLoginBox h1{text-align:center;color:#163664;font-size:clamp(25px,6vw,30px);line-height:1.2;letter-spacing:-.03em;margin:0 0 10px}
     #aydaLoginBox p{text-align:center;color:#63718a;font-size:15px;line-height:1.6;margin:0 0 24px}
     #aydaLoginBox .ayda-password-row{display:grid;grid-template-columns:1fr;gap:12px}
@@ -33,12 +33,12 @@
 <body>
 <section id="aydaLoginBox" aria-label="AYDA öğrenci girişi">
   <div class="ayda-login-card">
-    <div class="ayda-login-logo">AYDA</div>
+    <div class="ayda-login-logo"><img src="./assets/ayda-logo.png" alt="AYDA Dil Akademisi" width="142" height="48"></div>
     <h1>A1 Ders Tekrarı</h1>
-    <p>Ders videolarına ve alıştırmalara ulaşmak için sınıf şifreni yaz.</p>
+    <p>A1 video derslerine, konu anlatımlarına ve alıştırmalarına başlamak için sınıf şifreni yaz.</p>
     <form class="ayda-password-row" onsubmit="aydaCheckPassword(); return false;">
       <input id="aydaPasswordInput" name="aydaClassPassword" type="password" placeholder="Sınıf şifren" autocomplete="off" aria-label="Sınıf şifresi" aria-describedby="aydaLoginMessage" required>
-      <button class="ayda-login-btn" type="submit">Derslerime Gir →</button>
+      <button class="ayda-login-btn" type="submit">Öğrenmeye Başla →</button>
     </form>
     <div id="aydaLoginMessage" role="status" aria-live="polite"></div>
   </div>
